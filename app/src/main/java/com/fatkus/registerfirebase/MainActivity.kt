@@ -53,6 +53,25 @@ class MainActivity : AppCompatActivity() {
 
     }
         private fun saveRegister(){
-            val 
+            val name = editName.text.toString().trim()
+            val email = editEmail.text.toString().trim()
+            val password = editPassword.text.toString().trim()
+
+            if(name.isEmpty()){
+                editName.error="please enter a name"
+                return
+            }else if(email.isEmpty()){
+                editEmail.error="please enter a name"
+                return
+            } else if(password.isEmpty()){
+                editPassword.error="please enter a name"
+                return
+            }
+            val testId = ref.push().key
+            val register = Register(testId,name,email,password,ratingBar.rating.toInt())
+
+            ref.child(testId.toString()).setValue(register).addOnCompleteListener {
+                Toast.makeText(applicationContext,"register saved",Toast.LENGTH_SHORT)
+            }
         }
 }
